@@ -1,0 +1,26 @@
+{
+    "compilerOptions": {
+        "module": "CommonJS",
+        "target": "ES2021", // Modern JavaScript
+        "rootDir": ".", // Specify the root directory for input files
+        "outDir": "dist", // Output directory for compiled files
+        "moduleResolution": "node", // Resolve modules in a Node.js-like environment
+        "strict": true, // Enable all strict type-checking options
+        "esModuleInterop": true, // Allow default imports from CommonJS modules
+        "skipLibCheck": true, // Skip type checks for declaration files
+        "resolveJsonModule": true, // Allow importing .json files
+        "experimentalDecorators": true, // Enable decorators
+        "emitDecoratorMetadata": true, // Emit type metadata for decorators
+        "paths": { // Simplify imports with aliases
+            "@/*": ["./src/*"]
+        }
+    },
+    "include": [
+        "src/**/*.ts",
+        "jest.config.ts"
+    ],
+    "exclude": [
+        "node_modules",
+        "dist"
+    ]
+}

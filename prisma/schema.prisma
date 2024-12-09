@@ -1,0 +1,47 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        Int       @id @default(autoincrement())
+  username  String    @unique
+  password  String
+  role      Role      @default(USER)
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+
+  courses   Course[]  // Relation to courses (one-to-many)
+}
+
+model Course {
+  id           Int        @id @default(autoincrement())
+  title        String
+  description  String
+  duration     String
+  outcome      String
+  userId       Int
+  user         User       @relation(fields: [userId], references: [id]) // Relation to User
+  collectionId Int?       // Foreign key to Collection
+  collection   Collection? @relation(fields: [collectionId], references: [id]) // Relation to Collection
+  createdAt    DateTime   @default(now())
+  updatedAt    DateTime   @updatedAt
+
+  @@index([userId])       // Index for performance
+  @@index([collectionId]) // Index for performance
+}
+
+model Collection {
+  id       Int       @id @default(autoincrement())
+  name     String
+  courses  Course[]  // One-to-many relationship with Course
+}
+
+enum Role {
+  ADMIN
+  USER
+}
